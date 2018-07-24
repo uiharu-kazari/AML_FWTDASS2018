@@ -59,13 +59,14 @@ X6_normalized = preprocessing.normalize(X6, norm='l2')
 
 
 XM=np.array(Merged[Merged.columns[1:]])
-pca = PCA(n_components=2)
+pca = PCA(n_components=4)
 pca.fit(XM)
 
-PCA(copy=True, iterated_power='auto', n_components=2, random_state=None,\
+PCA(copy=True, iterated_power='auto', n_components=4, random_state=None,\
     svd_solver='auto', tol=0.0, whiten=False)
 print(pca.explained_variance_ratio_)  
-
+#
+#
 XM_normalized = preprocessing.normalize(XM, norm='l2')
 pcaN=PCA(n_components=10)
 pcaN.fit(XM_normalized)
