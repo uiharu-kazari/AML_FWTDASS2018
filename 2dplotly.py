@@ -20,10 +20,54 @@ from sklearn.datasets import make_blobs
 def StratificationwithText(blobdata,label,Text):
     blobs, labels = make_blobs(n_samples=2000, n_features=2)
     blobs[labels==2]
-
-def plotly2dDrawLabel():
+    pass
+    
+    
+'''    
+    from loremipsum import get_sentences
+    sentences_list = get_sentences(5)
+    len(sentences_list)
+'''
+def plotly2dDrawLabel(colorarray,label,info,*args): 
+    """
+    Insert zero if no color assigned
+    colorarray should be of the same length as x (or y or z)
+    """
+    if len(args)==2:
+        (x,y)=args
+    elif len(args)==1:
+        #Notice that using *args then args is of type list
+        inputmatrix=np.array(args[0])
+        (x,y)=(inputmatrix[:,0],inputmatrix[:,1])
+    else:
+        #warnings.warn("Incompatible dimension",DimensionIncompatibleWarning)
+        raise DimensionError('Input\'s dimension Incompatible.')
 #    plot the scatter points layer by laye
-#    each layer contains the same label
+#    each layer contains the same label        
+    traceArray= []
+    namevar= []
+    # Setting colors for plot.
+    #N specifies the number of labels
+    N= len(label)
+    c= ['hsl('+str(h)+',50%'+',50%)' for h in np.linspace(0, 360, N)]
+    preparedText=[]
+    for i in range(int(N)):
+        preparedText.append([str(i) for j in range(len(stanames))])
+    for i in range(int(N)):
+        namevar.append((2000+i))
+        trace0= go.Scatter(
+                x= data['Rank'],
+                y= data['Population']+(i*1000000),
+                mode= 'markers',
+                marker= dict(size= 14,
+                    line= dict(width=1),
+                    color= c[i],
+                    opacity= 0.3
+                   ),\
+                name= namevar[i],
+                text= preparedText[i]
+                ) # The hover text goes here... 
+        l.append(trace0);
     pass
 
 

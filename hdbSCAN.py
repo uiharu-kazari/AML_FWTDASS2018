@@ -9,28 +9,33 @@ Created on Mon Jul 23 14:49:47 2018
 from sklearn.datasets import make_blobs
 import pandas as pd
 
-blobs, labels = make_blobs(n_samples=2000, n_features=2)
-
-pd.DataFrame(blobs).head()
-
 import hdbscan
 import seaborn as sns
 import matplotlib.pyplot as plt
 import warnings
 
-tSNE100k=np.loadtxt("tSNE100k_default.out")
+#tSNE100k=np.loadtxt("tSNE100k_default.out")
 
-def hdbscanIntegration(data,min_cluster_size=15,displayOnly=True):
+def hdbscanIntegration(data,min_cluster_size=15,min_samples=1,displayOnly=True):
     """
-    data of form dim*num_points
+    Functions used to perform hdbscan on data
+    See the documentation for explanation of parameters
+    data is of form dim*num_points
     """
+    #Computer may crash if min_cluster_size is too large
     if min_cluster_size>100:
         warnings.warn("Parameter min_cluster_size too large.",FutureWarning)
         directive=input("For continuing computation, press y:")
         if directive!='y':
             return 0
-    clusterer=hdbscan.HDBSCAN(min_cluster_size)
+    #Generate the clusterer.
+    clusterer=hdbscan.HDBSCAN(min_cluster_size,min_samples,prediction_data=True)
+    #Feed the data into the clusterer
     clusterer.fit(data)
+    #If the dimension of the data is greater than 2, return the clusterer
+    if data.shape[1]>2:
+        return clusterer
+    #Or, we will plot a graph in python
     color_palette=sns.color_palette('deep',len(clusterer.labels_))
     #data samples that are not assigned to any cluster get -1,
     #and will be assigned color (0.5,0.5,0.5)
@@ -52,7 +57,7 @@ def hdbscanIntegration(data,min_cluster_size=15,displayOnly=True):
 #hierarchy.plot()
 
 #clusterer = hdbscan.HDBSCAN(min_cluster_size=15).fit(data)
-        
+#blobs, labels = make_blobs(n_samples=2000, n_features=2)
     
     
     

@@ -57,7 +57,7 @@ def fancySP(x,y,displayOnly=True):
     
 
 
-
+DtSNE=np.load('tSNE3dFINAL.npy')
 
 
 

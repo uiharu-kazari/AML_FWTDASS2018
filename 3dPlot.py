@@ -12,6 +12,7 @@ plotly.tools.set_credentials_file(username='suzukaze',\
 import plotly.plotly as py
 import plotly.graph_objs as go
 import warnings
+import random
 import numpy as np
 
 #class DimensionIncompatibleWarning(UserWarning):
@@ -53,3 +54,7 @@ def plotly3dDraw(colorarray,*args):
     output=py.plot(fig, filename='simple-3d-scatter',auto_open=False)
     return output
 
+#random.sample(range(10),4)
+#DN1=tSNE(X1_normalized[:2000],False,n_components=3)
+#DN1=tSNE(X1_normalized[random.sample(range(100000),4000)],False,n_components=3)
+    
